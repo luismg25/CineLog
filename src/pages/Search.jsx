@@ -110,7 +110,7 @@ export default function Search() {
 
     return (
         <div className="search-page">
-            <h2>Explorara el catálogo de <span className="text-accent">{mediaType === 'movie' ? 'películas' : 'series'}</span></h2>
+            <h2>Explora el catálogo de <span className="text-accent">{mediaType === 'movie' ? 'películas' : 'series'}</span></h2>
 
             <section className="controls">
                 <input

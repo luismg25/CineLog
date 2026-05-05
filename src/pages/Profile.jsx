@@ -48,14 +48,13 @@ export default function Profile() {
             {list.length > 0 ? (
                 <div className="carousel-container">
                     {list.map(movie => {
-                        // BUSCAMOS LA RESEÑA PARA ESTA PELÍCULA
                         const userReview = reviews.find(r => Number(r.movieId) === Number(movie.id));
 
                         return (
                             <MovieCard
                                 key={movie.id}
                                 movie={movie}
-                                userRating={userReview?.rating} // PASAMOS LA NOTA AQUÍ
+                                userRating={userReview?.rating}
                             />
                         );
                     })}
@@ -115,7 +114,6 @@ export default function Profile() {
                 <div className="export-grid">
                     {favoritas.map(movie => {
                         const review = reviews.find(r => Number(r.movieId) === Number(movie.id));
-                        // Determinar el título correcto para cine o serie
                         const displayTitle = movie.title || movie.name;
 
                         return (

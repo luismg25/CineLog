@@ -37,7 +37,7 @@ export default function Compare() {
     return (
         <div className="compare-page">
             <div className="section-header"></div>
-            <h1>Comparador de Películas</h1>
+            <h1>Comparador de <span className="text-accent">películas</span></h1>
 
             <div className="compare-search-bars">
                 {['p1', 'p2'].map((slot) => (
