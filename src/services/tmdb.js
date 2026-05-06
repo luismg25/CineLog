@@ -15,9 +15,6 @@ export const fetchMovies = async (endpoint, params = "") => {
     }
 };
 
-// --- ENDPOINTS DINÁMICOS (CINE Y TV) ---
-
-// Cambiamos 'movie/now_playing' por una lógica que soporte series (on_the_air)
 export const getNowPlaying = (type = 'movie') => {
     const endpoint = type === 'movie' ? 'now_playing' : 'on_the_air';
     return fetchMovies(`/${type}/${endpoint}`);
@@ -29,24 +26,19 @@ export const getTopRated = (type = 'movie') =>
 export const getPopular = (type = 'movie') =>
     fetchMovies(`/${type}/popular`);
 
-// Búsqueda dinámica (Usa 'multi' para buscar ambos a la vez o el tipo activo)
 export const searchMovies = async (query, type = 'movie') => {
     const data = await fetchMovies(`/search/${type}`, `&query=${encodeURIComponent(query)}`);
     return data.results || [];
 };
 
-// Detalles (Sirve para /movie/id o /tv/id)
 export const getMovieDetails = (id, type = 'movie') =>
     fetchMovies(`/${type}/${id}`, '&append_to_response=credits,videos');
 
-// Recomendaciones basadas en géneros (Dinámico para cine o TV)
 export const getRecommendedByGenres = async (genreIds, type = 'movie') => {
     // Aseguramos que el endpoint use el type dinámico (movie o tv)
     const data = await fetchMovies(`/discover/${type}`, `&with_genres=${genreIds}&sort_by=popularity.desc&vote_count.gte=100`);
     return data.results || [];
 };
-
-// --- MANTENEMOS LOS ESPECÍFICOS POR SI LOS NECESITAS ---
 
 export const getPopularTV = () => fetchMovies('/tv/popular');
 export const getTopRatedTV = () => fetchMovies('/tv/top_rated');

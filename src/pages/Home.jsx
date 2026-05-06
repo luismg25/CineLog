@@ -17,16 +17,15 @@ export default function Home() {
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
-    // --- LÓGICA DE RECOMENDACIONES (MEMOS Y EFECTOS) ---
+    // --- LÓGICA DE RECOMENDACIONES ---
 
-    // 1. Calculamos los géneros más frecuentes basándonos en favoritas Y vistas
+    // 1. Calculamos los géneros más frecuentes basándonos en las listas
     const topGenres = useMemo(() => {
         const allUserMovies = [...favoritas, ...vistas];
         if (allUserMovies.length === 0) return null;
 
         const genreCounts = {};
         allUserMovies.forEach(movie => {
-            // Extraemos géneros tanto si vienen como IDs o como objetos
             const ids = movie.genre_ids || movie.genres?.map(g => g.id) || [];
 
             ids.forEach(id => {
@@ -43,7 +42,7 @@ export default function Home() {
         return sorted.length > 0 ? sorted.join(',') : null;
     }, [favoritas, vistas]);
 
-    // 2. Petición a la API para recomendaciones y filtrado inteligente
+    // 2. Petición a la API para recomendaciones y filtrado
     useEffect(() => {
         const fetchRecs = async () => {
             // Si no hay historial, no buscamos recomendaciones
@@ -55,10 +54,10 @@ export default function Home() {
 
             setLoadingRecs(true);
             try {
-                // CLAVE: Pasamos mediaType para que recomiende solo el tipo activo (movie o tv)
+                // Pasamos mediaType para que recomiende solo el tipo activo
                 const data = await getRecommendedByGenres(topGenres, mediaType);
 
-                // Filtramos las que el usuario ya conoce para que sean "novedades"
+                // Filtramos las que el usuario ya ha registrado
                 const filtered = data.filter(m =>
                     !favoritas.some(f => f.id === m.id) &&
                     !vistas.some(v => v.id === m.id)
@@ -71,9 +70,7 @@ export default function Home() {
                 setLoadingRecs(false);
             }
         };
-
         fetchRecs();
-        // Reacciona al cambio de mediaType para cambiar recomendaciones de Cine <-> Series
     }, [topGenres, favoritas, vistas, mediaType]);
 
     // --- CARGA DE CATEGORÍAS GENERALES ---

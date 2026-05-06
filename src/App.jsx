@@ -9,7 +9,6 @@ import Navbar from './components/Navbar';
 import NotFound from "./pages/NotFound.jsx";
 import { useUser } from './context/UserContext';
 
-// Componente interno que ya vive dentro del UserProvider
 function AppRoutes() {
     const { state } = useUser();
 

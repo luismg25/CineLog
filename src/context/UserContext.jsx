@@ -15,30 +15,19 @@ const initialState = {
 function userReducer(state, action) {
     switch (action.type) {
         case 'TOGGLE_MEDIA':
-            return {
-                ...state,
-                mediaType: state.mediaType === 'movie' ? 'tv' : 'movie'
-            };
+            return { ...state, mediaType: state.mediaType === 'movie' ? 'tv' : 'movie' };
 
         case 'ADD_TO_LIST':
             if (state[action.list].find(m => m.id === action.movie.id)) return state;
-            return {
-                ...state,
-                [action.list]: [...state[action.list], action.movie]
-            };
+            return { ...state, [action.list]: [...state[action.list], action.movie] };
 
         case 'REMOVE_FROM_LIST':
-            return {
-                ...state,
-                [action.list]: state[action.list].filter(m => m.id !== action.id)
-            };
+            return { ...state, [action.list]: state[action.list].filter(m => m.id !== action.id) };
 
         case 'ADD_REVIEW':
-            return {
-                ...state,
+            return { ...state,
                 reviews: [
-                    ...state.reviews.filter(r => r.movieId !== action.movieId),
-                    {
+                    ...state.reviews.filter(r => r.movieId !== action.movieId), {
                         movieId: action.movieId,
                         rating: action.rating,
                         review: action.review
@@ -71,5 +60,6 @@ export const useUser = () => {
     }
     return context;
 };
+
 
 

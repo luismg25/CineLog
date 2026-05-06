@@ -14,13 +14,12 @@ export default function MovieDetail() {
     const [userRating, setUserRating] = useState(10);
     const [userReview, setUserReview] = useState('');
 
-    // 2. MEMOS (Cálculos que dependen de los datos)
+    // 2. MEMOS
     const existingReview = useMemo(() => {
         return state.reviews?.find(r => Number(r.movieId) === Number(id));
     }, [state.reviews, id]);
 
     // 3. EFECTOS
-
     // Carga de datos de la película o serie
     useEffect(() => {
         const loadDetail = async () => {
@@ -108,7 +107,6 @@ export default function MovieDetail() {
     const director = item.credits?.crew?.find(p => p.job === 'Director' || p.job === 'Executive Producer')?.name || "Desconocido";
     const trailer = item.videos?.results?.find(v => (v.type === 'Trailer' || v.type === 'Teaser') && v.site === 'YouTube');
 
-    // Las series no suelen tener 'runtime', sino 'episode_run_time' (un array)
     const runtime = item.runtime || (item.episode_run_time ? item.episode_run_time[0] : 0);
     const duration = runtime > 0 ? `${Math.floor(runtime / 60)}h ${runtime % 60}min` : "Duración no disponible";
 
