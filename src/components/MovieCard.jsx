@@ -33,7 +33,7 @@ export default function MovieCard({ movie, userRating }) {
                 <img
                     src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                     alt={displayTitle}
-                    onError={(e) => { e.target.src = "https://cphermanosarregui.es/_next/static/media/default-movie.16vb9qpjc3nbw.png"; }}
+                    onError={(e) => { e.target.src = "/no-poster.png"; }}
                 />
 
                 <div className="card-info">

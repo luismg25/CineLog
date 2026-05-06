@@ -51,7 +51,7 @@ export default function MovieDetail() {
             setUserRating(existingReview.rating);
             setUserReview(existingReview.review);
         } else {
-            setUserRating(10);
+            setUserRating(0);
             setUserReview('');
         }
     }, [existingReview, id]);
@@ -115,10 +115,15 @@ export default function MovieDetail() {
     return (
         <div className="movie-detail-page">
             <header className="detail-banner" style={{
-                backgroundImage: `linear-gradient(to top, var(--bg-color) 10%, transparent), url(https://image.tmdb.org/t/p/original${item.backdrop_path})`
+                backgroundImage: `linear-gradient(to top, var(--bg) 10%, transparent), url(https://image.tmdb.org/t/p/original${item.backdrop_path})`
             }}>
                 <div className="banner-content">
-                    <img src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} className="detail-poster" alt={displayTitle} />
+                    <img
+                        src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+                        className="detail-poster"
+                        alt={displayTitle}
+                        onError={(e) => { e.target.src = "/no-poster.png"; }}
+                    />
 
                     <div className="detail-main-info">
                         <h1>{displayTitle}</h1>

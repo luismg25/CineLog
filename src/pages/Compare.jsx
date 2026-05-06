@@ -84,7 +84,12 @@ export default function Compare() {
                 <div className="fighter-side">
                     {movie1 ? (
                         <div className="fighter-info">
-                            <img src={`https://image.tmdb.org/t/p/w400${movie1.poster_path}`} alt={getTitle(movie1)} className="fighter-poster" />
+                            <img
+                                src={`https://image.tmdb.org/t/p/w400${movie1.poster_path}`}
+                                alt={getTitle(movie1)}
+                                className="fighter-poster"
+                                onError={(e) => { e.target.src = "/no-poster.png"; }}
+                            />
                             <h3>{getTitle(movie1)}</h3>
                         </div>
                     ) : <div className="poster-placeholder">{label} 1</div>}
@@ -174,7 +179,12 @@ export default function Compare() {
                 <div className="fighter-side">
                     {movie2 ? (
                         <div className="fighter-info">
-                            <img src={`https://image.tmdb.org/t/p/w400${movie2.poster_path}`} alt={getTitle(movie2)} className="fighter-poster" />
+                            <img
+                                src={`https://image.tmdb.org/t/p/w400${movie2.poster_path}`}
+                                alt={getTitle(movie2)}
+                                className="fighter-poster"
+                                onError={(e) => { e.target.src = "/no-poster.png"; }}
+                            />
                             <h3>{getTitle(movie2)}</h3>
                         </div>
                     ) : <div className="poster-placeholder">{label} 2</div>}
