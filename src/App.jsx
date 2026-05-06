@@ -7,23 +7,33 @@ import MovieDetail from './pages/MovieDetail';
 import Profile from './pages/Profile';
 import Navbar from './components/Navbar';
 import NotFound from "./pages/NotFound.jsx";
+import { useUser } from './context/UserContext';
+
+// Componente interno que ya vive dentro del UserProvider
+function AppRoutes() {
+    const { state } = useUser();
+
+    return (
+        <Router>
+            <Navbar/>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/buscar" element={<Search key={state.mediaType} />} />
+                <Route path="/comparar" element={<Compare key={state.mediaType} />} />
+                <Route path="/:type/:id" element={<MovieDetail />} />
+                <Route path="/perfil" element={<Profile />} />
+                <Route path="*" element={<NotFound />} />
+            </Routes>
+        </Router>
+    );
+}
 
 function App() {
     return (
-          <UserProvider>
-                <Router>
-                    <Navbar/>
-                          <Routes>
-                                <Route path="/" element={<Home />} />
-                                <Route path="/buscar" element={<Search />} />
-                                <Route path="/comparar" element={<Compare />} />
-                                <Route path="/:type/:id" element={<MovieDetail />} />
-                                <Route path="/perfil" element={<Profile />} />
-                                <Route path="*" element={<NotFound />} />
-                          </Routes>
-                </Router>
-          </UserProvider>
-  );
+        <UserProvider>
+            <AppRoutes />
+        </UserProvider>
+    );
 }
 
 export default App;

@@ -12,6 +12,7 @@ export const useMovies = (query = '', filters = {}, page = 1, type = 'movie') =>
 
     useEffect(() => {
         const getData = async () => {
+            setError(null);
             setLoading(true);
             try {
                 let endpoint = query ? `/search/${type}` : `/discover/${type}`;

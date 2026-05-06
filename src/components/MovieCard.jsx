@@ -5,7 +5,9 @@ import { UserContext } from '../context/UserContext';
 export default function MovieCard({ movie, userRating }) {
     const { state } = useContext(UserContext);
 
-    const mediaType = movie.title ? 'pelicula' : 'serie';
+    const mediaType = movie.media_type === 'tv' ? 'serie'
+        : movie.media_type === 'movie' ? 'pelicula'
+        : movie.title ? 'pelicula' : 'serie';
     const displayTitle = movie.title || movie.name;
     const date = movie.release_date || movie.first_air_date;
     const year = date ? date.split('-')[0] : 'N/A';
